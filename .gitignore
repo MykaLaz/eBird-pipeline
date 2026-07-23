@@ -1,0 +1,54 @@
+# --- Secrets ---
+.env
+.env.*
+!.env.example
+
+# --- Data lake / warehouse (never commit real data) ---
+data/
+*.duckdb
+*.duckdb.wal
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.pyc
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# --- Virtual environments ---
+.venv/
+venv/
+env/
+
+# --- uv ---
+.uv-cache/
+
+# --- Testing / coverage ---
+.pytest_cache/
+.coverage
+htmlcov/
+
+# --- Linting / type-checking caches ---
+.ruff_cache/
+.mypy_cache/
+
+# --- dbt (once you get to Phase 3) ---
+dbt_packages/
+target/
+logs/
+
+# --- Airflow (once you get to Phase 5) ---
+airflow.db
+airflow-webserver.pid
+logs/
+
+# --- Editor / OS clutter ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# --- Jupyter, if you ever use it for exploration ---
+.ipynb_checkpoints/
