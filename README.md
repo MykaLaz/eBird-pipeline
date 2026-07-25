@@ -29,7 +29,7 @@ This is a personal project built to learn core data engineering concepts hands-o
 🚧 **In progress.** Currently: ingestion layer complete, warehouse and orchestration in progress.
  
 - [x] **Phase 1 — Ingestion**: authenticated eBird API client, raw data lake (partitioned JSON)
-- [ ] **Phase 2 — Landing**: load raw JSON into DuckDB
+- [x] **Phase 2 — Landing**: load raw JSON into DuckDB
 - [ ] **Phase 3 — Transform**: dbt staging + core (star schema) models
 - [ ] **Phase 4 — Marts**: analytics-ready aggregated views
 - [ ] **Phase 5 — Orchestration**: Airflow DAG tying it all together
