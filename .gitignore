@@ -34,6 +34,7 @@ htmlcov/
 .ruff_cache/
 .mypy_cache/
 
+
 # --- dbt (once you get to Phase 3) ---
 dbt_packages/
 target/
@@ -49,6 +50,10 @@ logs/
 .idea/
 .DS_Store
 Thumbs.db
+.zed/
 
 # --- Jupyter, if you ever use it for exploration ---
 .ipynb_checkpoints/
+
+# --- zed-dbt-pane ---
+/ebird_analytics/zed/
