@@ -30,7 +30,7 @@ This is a personal project built to learn core data engineering concepts hands-o
  
 - [x] **Phase 1 — Ingestion**: authenticated eBird API client, raw data lake (partitioned JSON)
 - [x] **Phase 2 — Landing**: load raw JSON into DuckDB
-- [ ] **Phase 3 — Transform**: dbt staging + core (star schema) models
+- [x] **Phase 3 — Transform**: dbt staging + core (star schema) models
 - [ ] **Phase 4 — Marts**: analytics-ready aggregated views
 - [ ] **Phase 5 — Orchestration**: Airflow DAG tying it all together
 - [ ] **Phase 6 — Consumption**: BI dashboard on top of the marts
@@ -112,6 +112,7 @@ A few deliberate decisions worth calling out, since they reflect the DE concepts
 - **Fail-fast config**: missing environment variables raise immediately at import time, rather than surfacing as a confusing error deep into a pipeline run.
 - **Retryable HTTP session**: the client uses a `requests.Session` with mounted retry/backoff
   logic for transient failures (429/5xx), rather than treating every failed call as fatal.
+- **Data modeling"**: fact_observation's primary key is (checklist_id, species_code); location_id was verified redundant in the key since each checklist maps to exactly one location
 
 ### Learning Goals
  
