@@ -1,0 +1,74 @@
+# models/core/schema.yml
+version: 2
+
+models:
+  - name: dim_location
+    description: One row per unique location.
+    columns:
+      - name: location_id
+        description: Stable location identifier — the dimension's key.
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_species
+    description: One row per unique species observed.
+    columns:
+      - name: species_code
+        description: Stable eBird species identifier — the dimension's key.
+        tests:
+          - unique
+          - not_null
+
+      - name: common_name
+        tests:
+          - not_null
+
+  - name: dim_date
+    description: >
+      Calendar dimension derived from observed_at. One row per unique date
+      on which at least one observation was recorded — not a full generated
+      calendar, so dates with zero observations won't appear here.
+    columns:
+      - name: observation_date
+        description: The calendar date — this dimension's key.
+        tests:
+          - unique
+          - not_null
+
+      - name: year
+        tests:
+          - not_null
+
+      - name: month
+        tests:
+          - not_null
+
+  - name: fact_observation
+    description: >
+      One row per species reported on one checklist. References dim_species,
+      dim_location, and dim_date by their keys.
+    columns:
+      - name: checklist_id
+        tests:
+          - not_null
+      - name: species_code
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_species')
+              field: species_code
+      - name: location_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_location')
+              field: location_id
+      - name: date
+        tests:
+          - not_null
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - checklist_id
+            - species_code

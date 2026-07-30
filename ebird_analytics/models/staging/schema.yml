@@ -1,0 +1,31 @@
+version: 2
+
+models:
+  - name: stg_observations
+    description: >
+      Cleaned, renamed, and type-cast observation records — one row per
+      species reported on one checklist. Thin pass-through from the raw
+      Bronze layer; no business logic or filtering applied here.
+    columns:
+      - name: checklist_id
+        description: The eBird checklist submission this observation came from.
+        tests:
+          - not_null
+
+      - name: species_code
+        description: Stable eBird species identifier.
+        tests:
+          - not_null
+
+      - name: location_id
+        description: Stable eBird location identifier.
+        tests:
+          - not_null
+
+      - name: observed_at
+        description: Timestamp when the observation was made.
+        tests:
+          - not_null
+
+      - name: observation_count
+        description: Number of individuals of this species reported. Nullable — eBird allows reporting presence without a count.

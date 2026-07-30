@@ -1,0 +1,13 @@
+{
+  "languages": {
+    "SQL": {
+      "format_on_save": "on",
+      "formatter": {
+        "external": {
+          "command": "./.venv/bin/sqlfluff",
+          "arguments": ["format", "-"]
+        }
+      }
+    }
+  }
+}
