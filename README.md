@@ -31,7 +31,7 @@ This is a personal project built to learn core data engineering concepts hands-o
 - [x] **Phase 1 — Ingestion**: authenticated eBird API client, raw data lake (partitioned JSON)
 - [x] **Phase 2 — Landing**: load raw JSON into DuckDB
 - [x] **Phase 3 — Transform**: dbt staging + core (star schema) models
-- [ ] **Phase 4 — Marts**: analytics-ready aggregated views
+- [x] **Phase 4 — Marts**: analytics-ready aggregated views
 - [ ] **Phase 5 — Orchestration**: Airflow DAG tying it all together
 - [ ] **Phase 6 — Consumption**: BI dashboard on top of the marts
 
