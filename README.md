@@ -32,14 +32,14 @@ This is a personal project built to learn core data engineering concepts hands-o
 - [x] **Phase 2 — Landing**: load raw JSON into DuckDB
 - [x] **Phase 3 — Transform**: dbt staging + core (star schema) models
 - [x] **Phase 4 — Marts**: analytics-ready aggregated views
-- [ ] **Phase 5 — Orchestration**: Airflow DAG tying it all together
+- [x] **Phase 5 — Orchestration**: Airflow DAG tying it all together
 - [ ] **Phase 6 — Consumption**: BI dashboard on top of the marts
 
 ### Architecture
 The project is realised according to the Medallion Architecture.
 ```mermaid
 graph LR
-    A[eBird API] -->|Ingest (Python)| B[Raw Data Lake <br> Partitioned JSON]
+    A[eBird API] -->|"Ingest (Python)"| B[Raw Data Lake <br> Partitioned JSON]
     subgraph Orchestrated with Airflow
         B -->|DuckDB + dbt| C[Staging + Warehouse]
         C -->|dbt| D[Data Marts]
@@ -113,6 +113,17 @@ A few deliberate decisions worth calling out, since they reflect the DE concepts
 - **Retryable HTTP session**: the client uses a `requests.Session` with mounted retry/backoff
   logic for transient failures (429/5xx), rather than treating every failed call as fatal.
 - **Data modeling"**: fact_observation's primary key is (checklist_id, species_code); location_id was verified redundant in the key since each checklist maps to exactly one location
+- **Orchestration notes**: 
+  - Airflow runs via `airflow standalone` (SQLite + local executor) rather than
+  the full Docker Compose stack, due to the latter's ~4-8GB RAM requirement
+  exceeding available hardware. The standalone setup uses well under 1GB.
+  - Airflow lives in its own separate virtual environment from the pipeline
+  code; DAG tasks use BashOperator to shell into each project's own `uv`
+  environment, rather than importing pipeline code directly into Airflow's
+  Python process.
+  - Newly added DAGs are paused by default; a paused DAG's manually-triggered
+  runs can appear stuck in "queued" indefinitely — unpausing is required for
+  tasks to actually execute, even for manual triggers.
 
 ### Learning Goals
  
